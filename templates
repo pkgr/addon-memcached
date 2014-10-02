@@ -1,0 +1,6 @@
+Template: memcached/autoinstall
+Type: select
+Choices: skip,install
+Translations: Skip,Install new memcached server
+Default: install
+Description: Do you want to install a memcached server?

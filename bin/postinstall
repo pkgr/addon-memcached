@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+. ${INSTALLER_DIR}/wizard
+
+start_daemon() {
+	service memcached status &>/dev/null || service memcached start
+
+	case "$OSFAMILY" in
+		"redhat")
+			chkconfig memcached on
+			;;
+	esac
+}
+
+case "$(wiz_get "memcached/autoinstall")" in
+	"skip")
+		;;
+	"install")
+		start_daemon
+		;;
+esac

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+. ${INSTALLER_DIR}/wizard
+
+OSFAMILY="$(wiz_fact osfamily)"
+
+install_memcached() {
+	case "$OSFAMILY" in
+		"debian")
+			apt-get install -y memcached
+			;;
+		"redhat")
+			yum install -y memcached
+			;;
+	esac
+}
+
+case "$(wiz_get "memcached/autoinstall")" in
+	"skip")
+		echo "No memcached server to install. Skipping."
+		;;
+	"install")
+		install_memcached
+		;;
+esac
