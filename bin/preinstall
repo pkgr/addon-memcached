@@ -9,10 +9,10 @@ OSFAMILY="$(wiz_fact osfamily)"
 install_memcached() {
 	case "$OSFAMILY" in
 		"debian")
-			apt-get install -y memcached
+			wiz_check_package "memcached" || apt-get install -y memcached
 			;;
 		"redhat")
-			yum install -y memcached
+			wiz_check_package "memcached" || yum install -y memcached
 			;;
 	esac
 }
