@@ -14,10 +14,18 @@ start_daemon() {
 	esac
 }
 
+write_config() {
+	local target="/etc/${APP_NAME}/conf.d/memcached"
+	echo "export MEMCACHED_SERVERS=tcp://127.0.0.1:11211" > "$target"
+	chown ${APP_USER}.${APP_GROUP} "$target"
+	chmod 0640 "$target"
+}
+
 case "$(wiz_get "memcached/autoinstall")" in
 	"skip")
 		;;
 	"install")
 		start_daemon
+		write_config
 		;;
 esac
