@@ -21,8 +21,14 @@ write_config() {
 	chmod 0640 "$target"
 }
 
+remove_config() {
+	local target="/etc/${APP_NAME}/conf.d/memcached"
+	rm -f "$target"
+}
+
 case "$(wiz_get "memcached/autoinstall")" in
 	"skip")
+		remove_config
 		;;
 	"install")
 		start_daemon
