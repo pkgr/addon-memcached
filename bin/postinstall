@@ -8,7 +8,7 @@ start_daemon() {
 	service memcached status &>/dev/null || service memcached start
 
 	case "$OSFAMILY" in
-		"redhat")
+		"redhat"|"suse")
 			chkconfig memcached on
 			;;
 	esac
