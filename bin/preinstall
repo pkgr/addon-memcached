@@ -17,6 +17,7 @@ install_memcached() {
 		"suse")
 			if ! wiz_check_package "memcached" ; then
 				rpm --import http://download.opensuse.org/repositories/home:/pheinlein/SLE_12/repodata/repomd.xml.key
+				zypper rr "home_pheinlein" &>/dev/null
 				zypper addrepo http://download.opensuse.org/repositories/home:pheinlein/SLE_12/home:pheinlein.repo
 				zypper modifyrepo --enable "home_pheinlein"
 				zypper install --from "home_pheinlein" -y memcached
