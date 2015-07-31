@@ -6,12 +6,6 @@ set -e
 
 start_daemon() {
 	service memcached status &>/dev/null || service memcached start
-
-	case "$OSFAMILY" in
-		"redhat"|"suse")
-			chkconfig memcached on
-			;;
-	esac
 }
 
 write_config() {

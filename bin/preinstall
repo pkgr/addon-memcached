@@ -13,6 +13,7 @@ install_memcached() {
 			;;
 		"redhat")
 			wiz_check_package "memcached" || yum install -y memcached
+			chkconfig memcached on
 			;;
 		"suse")
 			if ! wiz_check_package "memcached" ; then
@@ -23,6 +24,7 @@ install_memcached() {
 				zypper install --from "home_pheinlein" -y memcached
 				zypper modifyrepo --disable "home_pheinlein"
 			fi
+			chkconfig memcached on
 			;;
 	esac
 }
