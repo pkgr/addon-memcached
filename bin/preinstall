@@ -24,11 +24,24 @@ install_memcached() {
 	esac
 }
 
+configure_memcached() {
+	case "$OSFAMILY" in
+		"redhat")
+			sysconfig="/etc/sysconfig/memcached"
+			if [[ -w $sysconfig ]]; then
+				echo "OPTIONS=\"-l 127.0.0.1\"" >> $sysconfig
+			fi
+			;;
+	esac
+
+}
+
 case "$(wiz_get "memcached/autoinstall")" in
 	"skip")
 		echo "No memcached server to install. Skipping."
 		;;
 	"install")
 		install_memcached
+		configure_memcached
 		;;
 esac
