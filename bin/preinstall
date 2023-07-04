@@ -13,13 +13,11 @@ install_memcached() {
 			;;
 		"redhat")
 			wiz_check_package "memcached" || yum install -y memcached
-			chkconfig memcached on
+			wiz_service_enable "memcached"
 			;;
 		"suse")
-			if ! wiz_check_package "memcached"; then
-				zypper install -y memcached
-				chkconfig memcached on
-			fi
+			wiz_check_package "memcached" || zypper install -y memcached
+			wiz_service_enable "memcached"
 			;;
 	esac
 }
